@@ -2,6 +2,7 @@ package be.llodavid.app;
 
 import be.llodavid.app.resources.MoneyResource;
 import be.llodavid.app.views.MoneyModel;
+import be.llodavid.app.views.MoneyPresenter;
 import be.llodavid.app.views.MoneyViewVaadin;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
@@ -22,6 +23,7 @@ public class MvpUI extends UI {
         Navigator navigator = new Navigator(this, this);
         MoneyViewVaadin moneyView = new MoneyViewVaadin();
         MoneyModel moneyModel = new MoneyModel(moneyResource);
+        MoneyPresenter moneyPresenter = new MoneyPresenter(moneyView, moneyModel);
         navigator.addView("", moneyView);
     }
 }
