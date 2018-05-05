@@ -11,23 +11,49 @@ import java.util.List;
 public class MoneyViewVaadin extends CustomComponent implements View, MoneyView {
     private List<MoneyViewListener> listeners;
     private Label lblBalance;
+    private Button btnDeposit, btnWithdraw;
+
     public MoneyViewVaadin() {
         listeners = new ArrayList<>();
 
-        lblBalance = new Label("default");
-        lblBalance.setStyleName(ValoTheme.LABEL_HUGE);
-        viewOpened();
+        TextField txtAmount = createTxtAmount();
 
-        Button btnDeposit = new Button("Deposit");
+        btnDeposit = new Button("Deposit",
+                click -> listeners.forEach(
+                        listener -> listener.depositClicked(Double.parseDouble(txtAmount.getValue()))));
+        btnWithdraw = new Button("Withdraw",
+                click -> listeners.forEach(
+                        listener -> listener.withdrawClicked(Double.parseDouble(txtAmount.getValue()))));
+
+        setCompositionRoot(renderComponents(createBalanceLayout(), txtAmount));
+    }
+
+    private TextField createTxtAmount() {
         TextField txtAmount = new TextField();
-        txtAmount.setWidth("150px");
-        Button btnWithdraw = new Button("Withdraw");
+        txtAmount.setWidth("75px");
+        txtAmount.setValue("100");
+        txtAmount.setStyleName(ValoTheme.TEXTFIELD_ALIGN_CENTER);
+        return txtAmount;
+    }
 
-        HorizontalLayout withdrawDepositLayout = new HorizontalLayout(btnDeposit,txtAmount,btnWithdraw);
-        VerticalLayout contentLayout = new VerticalLayout(lblBalance,withdrawDepositLayout);
-        contentLayout.setComponentAlignment(lblBalance,Alignment.MIDDLE_CENTER);
-        VerticalLayout mainLayout = new VerticalLayout(contentLayout);
-        setCompositionRoot(mainLayout);
+    private VerticalLayout renderComponents(HorizontalLayout balanceLayout, TextField amount) {
+        HorizontalLayout withdrawDepositLayout = new HorizontalLayout(btnDeposit, amount, btnWithdraw);
+
+        VerticalLayout contentLayout = new VerticalLayout(balanceLayout, withdrawDepositLayout);
+
+        contentLayout.setComponentAlignment(balanceLayout, Alignment.MIDDLE_CENTER);
+        contentLayout.setComponentAlignment(withdrawDepositLayout, Alignment.MIDDLE_CENTER);
+
+        withdrawDepositLayout.setStyleName(ValoTheme.LAYOUT_HORIZONTAL_WRAPPING);
+        contentLayout.setStyleName(ValoTheme.FORMLAYOUT_LIGHT);
+        return new VerticalLayout(contentLayout);
+    }
+
+    private HorizontalLayout createBalanceLayout() {
+        lblBalance = new Label();
+        lblBalance.setStyleName(ValoTheme.LABEL_HUGE);
+
+        return new HorizontalLayout(lblBalance);
     }
 
     @Override
@@ -37,15 +63,11 @@ public class MoneyViewVaadin extends CustomComponent implements View, MoneyView 
 
     @Override
     public void setBalance(double balance) {
-        lblBalance.setValue(String.format("text : %.2f",balance));
+        lblBalance.setValue(String.format("€ %.2f", balance));
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        viewOpened();
-    }
-
-    private void viewOpened() {
         listeners.forEach(listener -> listener.viewOpened());
     }
 }

@@ -6,11 +6,11 @@ import org.springframework.stereotype.Component;
 public class MoneyResource {
     double balance = 1500.49;
 
-    void deposit(double amount) {
+    public void deposit(double amount) {
         balance += amount;
     }
 
-    void withdraw(double amount) {
+    public void withdraw(double amount) {
         if (amount <= balance) {
             balance -= amount;
         }

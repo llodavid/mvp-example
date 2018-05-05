@@ -26,6 +26,16 @@ public class MoneyModel {
         listeners.add(listener);
     }
 
+    public void depositMoney(double amount) {
+        moneyResource.deposit(amount);
+        communicateBalance();
+    }
+
+    public void withdrawMoney(double amount) {
+        moneyResource.withdraw(amount);
+        communicateBalance();
+    }
+
     interface MoneyModelListener {
         void newBalance(double balance);
     }

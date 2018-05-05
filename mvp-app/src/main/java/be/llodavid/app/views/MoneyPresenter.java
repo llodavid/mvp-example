@@ -2,8 +2,8 @@ package be.llodavid.app.views;
 
 public class MoneyPresenter implements MoneyView.MoneyViewListener,
         MoneyModel.MoneyModelListener{
-    private MoneyView view;
-    private MoneyModel model;
+    private final MoneyView view;
+    private final MoneyModel model;
 
     public MoneyPresenter(MoneyView view, MoneyModel model) {
         this.view = view;
@@ -15,6 +15,16 @@ public class MoneyPresenter implements MoneyView.MoneyViewListener,
     @Override
     public void viewOpened() {
         model.viewOpened();
+    }
+
+    @Override
+    public void depositClicked(double amount) {
+        model.depositMoney(amount);
+    }
+
+    @Override
+    public void withdrawClicked(double amount) {
+        model.withdrawMoney(amount);
     }
 
     @Override
