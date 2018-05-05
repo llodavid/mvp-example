@@ -8,5 +8,7 @@ public class MoneyPresenter implements MoneyView.MoneyViewListener,
     public MoneyPresenter(MoneyView view, MoneyModel model) {
         this.view = view;
         this.model = model;
+        view.addListener(this);
+        model.addListener(this);
     }
 }

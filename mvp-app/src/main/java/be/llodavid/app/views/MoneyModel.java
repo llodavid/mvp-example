@@ -14,6 +14,10 @@ public class MoneyModel {
         listeners = new ArrayList<>();
     }
 
+    public void addListener(MoneyModelListener listener) {
+        listeners.add(listener);
+    }
+
     interface MoneyModelListener {
 
     }
