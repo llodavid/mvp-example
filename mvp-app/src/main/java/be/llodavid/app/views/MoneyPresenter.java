@@ -9,4 +9,14 @@ public class MoneyPresenter implements MoneyView.MoneyViewListener,
         this.view = view;
         this.model = model;
     }
+
+    @Override
+    public void viewOpened() {
+        model.viewOpened();
+    }
+
+    @Override
+    public void newBalance(double balance) {
+        view.setBalance(balance);
+    }
 }

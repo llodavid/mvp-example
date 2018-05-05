@@ -14,7 +14,15 @@ public class MoneyModel {
         listeners = new ArrayList<>();
     }
 
-    interface MoneyModelListener {
+    public void viewOpened() {
+        communicateBalance();
+    }
 
+    private void communicateBalance() {
+        listeners.forEach(listener -> listener.newBalance(moneyResource.getBalance()));
+    }
+
+    interface MoneyModelListener {
+        void newBalance(double balance);
     }
 }
