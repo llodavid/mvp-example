@@ -28,8 +28,7 @@ public class MvpUI extends UI {
 
         MoneyViewVaadin moneyView = new MoneyViewVaadin();
         MoneyModel moneyModel = new MoneyModel(moneyResource);
-        MoneyPresenter moneyPresenter = new MoneyPresenter(moneyView,moneyModel)
-                ;
+        MoneyPresenter moneyPresenter = new MoneyPresenter(moneyView,moneyModel);
         navigator.addView("", moneyView);
     }
 }

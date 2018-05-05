@@ -16,6 +16,7 @@ public class MoneyViewVaadin extends CustomComponent implements View, MoneyView 
 
         lblBalance = new Label("default");
         lblBalance.setStyleName(ValoTheme.LABEL_HUGE);
+        viewOpened();
 
         Button btnDeposit = new Button("Deposit");
         TextField txtAmount = new TextField();
@@ -24,6 +25,7 @@ public class MoneyViewVaadin extends CustomComponent implements View, MoneyView 
 
         HorizontalLayout withdrawDepositLayout = new HorizontalLayout(btnDeposit,txtAmount,btnWithdraw);
         VerticalLayout contentLayout = new VerticalLayout(lblBalance,withdrawDepositLayout);
+        contentLayout.setComponentAlignment(lblBalance,Alignment.MIDDLE_CENTER);
         VerticalLayout mainLayout = new VerticalLayout(contentLayout);
         setCompositionRoot(mainLayout);
     }
@@ -40,6 +42,10 @@ public class MoneyViewVaadin extends CustomComponent implements View, MoneyView 
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
+        viewOpened();
+    }
+
+    private void viewOpened() {
         listeners.forEach(listener -> listener.viewOpened());
     }
 }

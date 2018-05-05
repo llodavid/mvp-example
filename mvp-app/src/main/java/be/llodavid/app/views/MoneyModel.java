@@ -22,6 +22,10 @@ public class MoneyModel {
         listeners.forEach(listener -> listener.newBalance(moneyResource.getBalance()));
     }
 
+    public void addListener(MoneyModelListener listener) {
+        listeners.add(listener);
+    }
+
     interface MoneyModelListener {
         void newBalance(double balance);
     }
