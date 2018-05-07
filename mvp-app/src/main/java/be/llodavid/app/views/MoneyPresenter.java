@@ -1,7 +1,6 @@
 package be.llodavid.app.views;
 
-public class MoneyPresenter implements MoneyView.MoneyViewListener,
-        MoneyModel.MoneyModelListener{
+public class MoneyPresenter implements MoneyView.MoneyViewListener{
     private final MoneyView view;
     private final MoneyModel model;
 
@@ -9,6 +8,5 @@ public class MoneyPresenter implements MoneyView.MoneyViewListener,
         this.view = view;
         this.model = model;
         view.addListener(this);
-        model.addListener(this);
     }
 }
